@@ -11,3 +11,37 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/customer
+
+
+###
+GET http://localhost:8080/customer/1
+
+
+###
+DELETE http://localhost:8080/customer/1
+
+
+###
+GET http://localhost:8080/healthz
+
+
+###
+GET http://localhost:8080/books
+
+
+###
+GET http://localhost:8080/books/4
+
+
+
+###
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+    "id":1,
+    "genre":"test",
+    "author":"test",
+    "title":"test",
+    "price": 10
+}

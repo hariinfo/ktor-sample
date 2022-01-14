@@ -1,18 +1,28 @@
 package com.example
 
-import io.ktor.server.routing.*
+import com.typesafe.config.ConfigFactory
+import io.ktor.application.*
+import io.ktor.config.*
 import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.request.*
 import kotlin.test.*
 import io.ktor.server.testing.*
-import com.example.plugins.*
+import io.ktor.util.*
+import org.junit.BeforeClass
 
 class ApplicationTest {
 
     @Test
     fun tesRoot(){
-        
+        withServer{
+            handleRequest(HttpMethod.Get, "/healthz").apply {
+                assertEquals(HttpStatusCode.OK, response.status())
+            }
+        }
+    }
+
+    fun <R> withServer(test: TestApplicationEngine.() -> R) {
+        withApplication(createTestEnvironment {
+            config = HoconApplicationConfig(ConfigFactory.load("application.conf"))
+        }, test = test)
     }
 }
